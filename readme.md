@@ -14,7 +14,7 @@ yarn test
 [C# 版 - CWKSC](https://github.com/CWKSC/magic-in-ten-mins-csharp) |
 [Lua 版 - Ofey Chan](https://github.com/ofey404/magic-in-ten-mins-lua) |
 [Ocaml 版 - 光吟](https://github.com/LighghtEeloo/magic-in-ten-mins-ml) |
-[Python 版 - penguin_wwy](https://github.com/penguin-wwy/magic-in-ten-mins-py)
+[Python 版 - penguin_wwy](https://github.com/penguin-wwy/magic-in-ten-mins-py) |
 [TypeScript 版 - Asuka Minato](https://github.com/wuyudi/magic-in-ten-mins-ts)
 
 抽象与组合
