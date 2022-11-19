@@ -1,13 +1,7 @@
 # 十分钟魔法练习
 
-## Usage
-
-改写完的见 `package.json` 里的 `test`。
-
-```
-yarn
-yarn test
-```
+改写自 [十分钟魔法练习-玩火](https://github.com/goldimax/magic-in-ten-mins)
+原版为 Java 实现
 
 [Rust 版 - 光量子](https://github.com/PhotonQuantum/magic-in-ten-mins-rs) |
 [C++ 版 - 图斯卡蓝瑟](https://github.com/tusikalanse/magic-in-ten-mins-cpp) |
@@ -25,6 +19,15 @@ QQ 群：1070975853 |
 [Telegram Group](https://t.me/joinchat/HZm-VAAFTrIxoxQQ)
 
 > 目录中方括号里的是前置技能。
+
+## Usage
+
+改写完的见 `package.json` 里的 `test`。
+
+```
+yarn
+yarn test
+```
 
 ## 类型系统
 
