@@ -60,24 +60,25 @@ function test() {
 
 听上去很难理解，把上面的三个 `cont` 函数改成 CPS 就很好理解了：
 
+<!-- #test -->
 ```ts
-function logic1(f: Consumer<Integer>) {
+function logic1(f: (x: number) => void) {
     const i = 1;
-    f.accept(i); // return i
+    f(i); // return i
 }
-function logic2(i: number, f: Consumer<Integer>) {
+function logic2(i: number, f: (x: number) => void) {
     i++;
-    f.accept(i);
+    f(i);
 }
-function logic3(i: number, f: Consumer<Integer>) {
+function logic3(i: number, f: (x: number) => void) {
     console.log(i);
-    f.accept(i);
+    f(i);
 }
 function test() {
-         logic1( // 获取返回值 i
-    i => logic2(i, 
-    i => logic3(i, 
-    i => {})));
+    logic1( // 获取返回值 i
+        i => logic2(i,
+            i => logic3(i,
+                i => { })));
 }
 ```
 
@@ -91,6 +92,7 @@ function test() {
 
 考虑有另一个函数 `callT` 调用了 `test` 函数，如：
 
+<!-- verifier:prepend-id-to-following:test -->
 ```ts
 const callT = () => {
     test();
@@ -110,19 +112,24 @@ const callT = () => {
 
 首先最基本的想法是把每次调用 `try` 的 `catch` 函数保存起来，由于 `try` 可层层嵌套所以每次压入栈中，然后 `throw` 的时候将最近的 `catch` 函数取出来调用即可：
 
+<!-- #trycatch -->
 ```ts
-Stack<Consumer<Exception>> cs = new Stack<>();
+const cs: ((x: Error) => void)[] = [];
 
-function Try(Consumer<Runnable> body,
-         BiConsumer<Exception, Runnable> handler,
-         Runnable cont) {
-    cs.push(e -> handler.accept(e, cont));
-    body.accept(cont);
+type Consumer<T> = (x: T) => void;
+type Runnable = () => void;
+type BiConsumer<T, U> = (x: T, y: U) => void;
+type Exception = Error;
+function Try(body: Consumer<Runnable>,
+    handler: BiConsumer<Exception, Runnable>,
+    cont: Runnable) {
+    cs.push(e => handler(e, cont));
+    body(cont);
     cs.pop();
 }
 
-function Throw(Exception e) {
-    cs.peek().accept(e);
+function Throw(e: Exception) {
+    cs[cs.length - 1](e);
 }
 ```
 
@@ -130,27 +137,36 @@ function Throw(Exception e) {
 
 有了 `try-throw` 就可以按照 CPS 风格调用它们来达到处理异常的目的：
 
+<!-- verifier:prepend-id-to-following:trycatch -->
+<!-- #error -->
 ```ts
-function test(t: number) {
+const test = (t: number) => {
     Try(
-    cont => {
-        console.log("try");
-        if (t === 0) Throw(new ArithmeticException());
-        else {
-            console.log(100 / t);
+        cont => {
+            console.log("try");
+            if (t === 0) { Throw(new EvalError()); }
+            else {
+                console.log(100 / t);
+                cont();
+            }
+        },
+        (e, cont) => {
+            console.log("catch");
             cont();
-        }
-    },
-    (e, cont) => {
-        console.log("catch");
-        cont();
-    },
-    () => console.log("final"));
+        },
+        () => console.log("final"));
 }
 ```
 
 调用 `test(0)` 会得到：
 
+<!-- verifier:prepend-id-to-following:error -->
+<!-- #test0 -->
+```ts
+test(0);
+```
+
+<!-- #test0-output -->
 ```
 try
 catch
@@ -159,6 +175,12 @@ final
 
 而调用 `test(1)` 会得到：
 
+<!-- #test1 -->
+```ts
+test(1);
+```
+
+<!-- #test1-output -->
 ```
 try
 100
