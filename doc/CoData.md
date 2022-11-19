@@ -10,8 +10,9 @@
 
 但是同样很显然 ADT 并不能搞出环形的数据结构或者说是无穷大小的数据结构。比如下面的代码：
 
+<!-- verifier:skip -->
 ```ts
-IntList list = new IntCons(1, list);
+const list = new IntCons(1, list);
 ```
 
 编译器会表示 `list` 在使用时未初始化。
@@ -30,38 +31,42 @@ IntList list = new IntCons(1, list);
 
 比如一个列表可以被分解为第一项和剩余的列表：
 
+<!-- #inf -->
 ```ts
 class InfIntList {
-    head: number;
-    next: Supplier<InfIntList>;
-    
-    InfIntList(
-        head: number, 
-        next: Supplier<InfIntList>
-    ) {
-        this.head = head;
-        this.next = next;
-    }
+	constructor(public head: number, public next: () => InfIntList) {
+		this.head = head;
+		this.next = next;
+	}
 }
 ```
 
 这里的 `Supplier` 可以做到仅在需要 `next` 的时候才求值。使用的例子如下：
 
+<!-- verifier:prepend-id-to-following:inf -->
+<!-- #inflist -->
 ```ts
-public class Codata {
-    static InfIntList
-    infAlt() {
-        return new InfIntList(1, 
-         () => new InfIntList(2, 
-         Codata::infAlt));
-    }
-    
-    public static void 
-    main(String[] args) {
-        console.log(
-            infAlt().next.get().head);
-    }
-}
+const infAlt = () => new InfIntList(1, () => new InfIntList(2, infAlt));
+```
+
+<!-- verifier:prepend-id-to-following:inflist -->
+<!-- #test -->
+```ts
+console.log(infAlt().next().head);
+console.log(infAlt().next().next().head);
+console.log(infAlt().next().next().next().head);
+console.log(infAlt().next().next().next().next().head);
+console.log(infAlt().next().next().next().next().next().head);
+console.log(infAlt().next().next().next().next().next().next().head);
+```
+<!-- #test-output -->
+```
+2
+1
+2
+1
+2
+1
 ```
 
 运行会输出 `2` 。注意，这里的 `infAlt` 从某种角度来看实际上就是个长度为 2 的环形结构。
