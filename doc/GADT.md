@@ -8,18 +8,20 @@
 
 ```ts
 // 构造函数已省去
-interface Expr {}
+interface Expr { }
 class IVal implements Expr {
-    Integer value;
+    value: number;
 }
 class BVal implements Expr {
-    Boolean value;
+    value: boolean;
 }
 class Add implements Expr {
-    Expr e1, e2;
+    e1: Expr;
+    e2: Expr;
 }
 class Eq implements Expr {
-    Expr e1, e2;
+    e1: Expr;
+    e2: Expr;
 }
 ```
 
@@ -29,18 +31,20 @@ class Eq implements Expr {
 
 ```ts
 // 构造函数已省去
-interface Expr<T> {}
-class IVal implements Expr<Integer> {
-    Integer value;
+interface Expr<T> { }
+class IVal implements Expr<number> {
+    value: number;
 }
 class BVal implements Expr<Boolean> {
-    Boolean value;
+    value: boolean;
 }
-class Add implements Expr<Integer> {
-    Expr<Integer> e1, e2;
+class Add implements Expr<number> {
+    e1: Expr<number>;
+    e2: Expr<number>;
 }
-class Eq<T> implements Expr<Boolean> {
-    Expr<T> e1, e2;
+class Eq<T> implements Expr<boolean> {
+    e1: Expr<T>;
+    e2: Expr<T>;
 }
 ```
 

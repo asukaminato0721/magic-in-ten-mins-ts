@@ -5,8 +5,9 @@
   "author": "Asuka Minato",
   "license": "MIT",
   "scripts": {
-    "test": "literate-ts ./doc/{ADT,Algeff,CHIso,ChurchE,TableDriven,Monoid,CoData,Continuation}.md",
-    "Continuation": "literate-ts ./doc/Continuation.md"
+    "test": "literate-ts ./doc/{ADT,Algeff,CHIso,ChurchE,TableDriven,Monoid,CoData,Continuation,GADT,PiSigma}.md",
+    "Continuation": "literate-ts ./doc/Continuation.md",
+    "GADT": "literate-ts ./doc/GADT.md"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
