@@ -22,11 +22,26 @@ QQ 群：1070975853 |
 
 ## Usage
 
-改写完的见 `package.json` 里的 `test`。
+改写完了 `ADT,Algeff,CHIso,ChurchE,TableDriven,Monoid,CoData,Continuation`
+
+### yarn
 
 ```
 yarn
 yarn test
+```
+
+### npm
+
+```
+npm i
+npm test
+```
+
+如果整体测试过慢，就照着 `package.json` 里的 `Continuation` 手动加测试命令。
+
+```
+npm run Continuation
 ```
 
 ## 类型系统
