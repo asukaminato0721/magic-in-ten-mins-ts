@@ -1,0 +1,15 @@
+{
+  "name": "10-minutes-magic-typescript",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "author": "Asuka Minato",
+  "license": "MIT",
+  "scripts": {
+    "test": "literate-ts ./doc/{ADT,Algeff,CHIso,ChurchE,TableDriven,Monoid}.md"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "literate-ts": "^1.1.1",
+    "typescript": "^4.9.3"
+  }
+}

@@ -1,0 +1,5 @@
+doc/*.png
+node_modules
+package-lock.json
+yarn.lock
+*.ts
