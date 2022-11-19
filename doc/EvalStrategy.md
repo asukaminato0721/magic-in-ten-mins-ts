@@ -2,7 +2,7 @@
 
 ### By 「玩火」 改写 「Asuka Minato」
 
-> 前置技能：TypeScript基础，λ演算
+> 前置技能：TypeScript 基础，λ演算
 
 ## 非严格求值
 
@@ -22,7 +22,7 @@ public Expr reduce() {
 
 并且函数的 `reduce` 并不会 `reduce` 函数内部表达式而是直接返回 `this` 。
 
-这样处理和平时见过的常规语言似乎很不一样，C、TypeScript在处理函数参数时都选择先对参数求值再传参。
+这样处理和平时见过的常规语言似乎很不一样，C、TypeScript 在处理函数参数时都选择先对参数求值再传参。
 
 像这样先传参再归约的求值思路就叫非严格求值（Non-strict Evaluation），也叫惰性求值（Lazy Evaluation）。其最大好处是在很多时候函数的参数没有被使用过的情况下节省了求值时归约次数。
 
@@ -79,8 +79,3 @@ public Expr fullBetaReduce() {
 ```
 λ f. λ x. f x
 ```
-
-
-
-
-

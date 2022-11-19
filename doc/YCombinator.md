@@ -92,4 +92,3 @@ State While(State state) {
 ```
 
 这样就可以把任意的循环改写成 λ 演算的形式了。
-
