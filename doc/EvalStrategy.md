@@ -10,10 +10,10 @@
 
 ```ts
 // class App
-public Expr reduce() {
-    Expr fr = f.reduce();
+public reduce(): Expr {
+    const fr = f.reduce();
     if (fr instanceof Fun) {
-        Fun fun = (Fun) fr;
+        const fun = fr;
         return fun.e.apply(fun.x, x).reduce();
     }
     return new App(fr, x);
@@ -34,11 +34,11 @@ public Expr reduce() {
 
 ```ts
 // class App
-public Expr strictReduce() {
-    Expr fr = f.strictReduce();
-    Expr xr = x.strictReduce();
+public strictReduce(): Expr {
+    const fr = f.strictReduce();
+    const xr = x.strictReduce();
     if (fr instanceof Fun) {
-        Fun fun = (Fun) fr;
+        const fun = fr;
         return fun.e.apply(fun.x, xr).strictReduce();
     }
     return new App(fr, xr);
@@ -53,7 +53,7 @@ public Expr strictReduce() {
 
 ```ts
 // class Fun
-public Expr fullBetaReduce() {
+public fullBetaReduce(): Expr {
     return new Fun(x, e.fullBetaReduce());
 }
 ```

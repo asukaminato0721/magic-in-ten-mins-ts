@@ -22,7 +22,7 @@ QQ 群：1070975853 |
 
 ## Usage
 
-改写完了 `ADT,Algeff,CHIso,ChurchE,TableDriven,Monoid,CoData,Continuation`
+改写完了 `Algeff,CHIso,ChurchE,Continuation`
 
 ### yarn
 
@@ -46,13 +46,13 @@ npm run Continuation
 
 ## 类型系统
 
-偏易 |[Markdown](doc/ADT.md) |代数数据类型 (Algebraic Data Type) [TypeScript 基础]
+- [x] 偏易 |[Markdown](doc/ADT.md) |代数数据类型 (Algebraic Data Type) [TypeScript 基础]
 
-偏易 |[Markdown](doc/GADT.md) |广义代数数据类型 (Generalized Algebriac Data Type) [TypeScript 基础， ADT] 
+- [x] 偏易 |[Markdown](doc/GADT.md) |广义代数数据类型 (Generalized Algebriac Data Type) [TypeScript 基础， ADT] 
 
-偏易 |[Markdown](doc/CoData.md) |余代数数据类型 (Coalgebraic Data Type)[TypeScript 基础， ADT]
+- [x] 偏易 |[Markdown](doc/CoData.md) |余代数数据类型 (Coalgebraic Data Type)[TypeScript 基础， ADT]
 
-偏易 |[Markdown](doc/Monoid.md) |单位半群 (Monoid)[TypeScript 基础]
+- [x] 偏易 |[Markdown](doc/Monoid.md) |单位半群 (Monoid)[TypeScript 基础]
 
 较难 |[Markdown](doc/HKT.md) |高阶类型 (Higher Kinded Type)[TypeScript 基础]
 
@@ -68,7 +68,7 @@ npm run Continuation
 
 较难 |[Markdown](doc/CoC.md) |构造演算 (Calculus of Construction)[TypeScript 基础， ADT ，系统 F ω]
 
-偏易 |[Markdown](doc/PiSigma.md) |Π 类型和 Σ 类型 (Pi type & Sigma type)[ADT ，构造演算]
+- [x] 偏易 |[Markdown](doc/PiSigma.md) |Π 类型和 Σ 类型 (Pi type & Sigma type)[ADT ，构造演算]
 
 ## 计算理论
 
@@ -90,18 +90,18 @@ npm run Continuation
 
 ## 形式化验证
 
-偏易 |[Markdown](doc/CHIso.md) |Curry-Howard 同构 (Curry-Howard Isomorphism)[构造演算]
+- [x] 偏易 |[Markdown](doc/CHIso.md) |Curry-Howard 同构 (Curry-Howard Isomorphism)[构造演算]
 
 偏难 |[Markdown](doc/LeiEq.md) |莱布尼兹相等性 (Leibniz Equality)[构造演算]
 
 ## 编程范式
 
-简单 |[Markdown](doc/TableDriven.md) |表驱动编程 (Table-Driven Programming)[简单 TypeScript 基础]
+- [x] 简单 |[Markdown](doc/TableDriven.md) |表驱动编程 (Table-Driven Programming)[简单 TypeScript 基础]
 
-简单 |[Markdown](doc/Continuation.md) |续延 (Continuation)
+- [x] 简单 |[Markdown](doc/Continuation.md) |续延 (Continuation)
 [简单 TypeScript 基础]
 
-中等 |[Markdown](doc/Algeff.md) |代数作用 (Algebraic Effect)
+- [x] 中等 |[Markdown](doc/Algeff.md) |代数作用 (Algebraic Effect)
 [简单 TypeScript 基础，续延]
 
 中等 |[Markdown](doc/DepsInj.md) |依赖注入 (Dependency Injection)

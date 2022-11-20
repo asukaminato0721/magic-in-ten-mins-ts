@@ -9,24 +9,22 @@
 写代码的时候常常会碰到语言表达能力不足的问题，比如下面这段用来给 `F` 容器中的值进行映射的代码：
 
 ```ts
-interface Functor<F> {
-    <A, B>
-    F<B> map(F<A> a, Function<A, B> f);
+interface Functor<F, A, B> {
+    map(a: F<A>, f: (x: A) => B): F<B>;
 }
 ```
 
-并不能通过 `tsc` 的编译，编译器会告诉你 F 不能有泛型参数。
+并不能通过 `tsc` 的编译，编译器会告诉你 F 不是泛型。 https://stackoverflow.com/questions/70972124/can-i-pass-a-generic-type-as-a-type-parameter
 
-最简单粗暴的解决方案就是放弃类型检查，全上 `Object` ，如：
+最简单粗暴的解决方案就是放弃类型检查，全上 `any` ，如：
 
 ```ts
-interface Functor<F> {
-    Object map(Object a, 
-               Function<Object, Object> f);
+interface Functor {
+    map(a: any, f: (x: any) => any): any;
 }
 ```
 
-实际上 TypeScript 经常这么干，标准库中到处是 `Object` 的身影，重载的各种接口也常常要手工转换类型， `equals` 要和 `Object` 比较， `compareTo` 要和 `Object` 比较……似乎习惯了以后也挺好，又不是不能用！
+~~实际上 TypeScript 经常这么干，标准库中到处是 `any` 的身影，重载的各种接口也常常要手工转换类型， `equals` 要和 `any` 比较， `compareTo` 要和 `any` 比较……似乎习惯了以后也挺好，又不是不能用！~~ JavaScript 经常这么干。
 
 ## 高阶类型
 
@@ -47,7 +45,7 @@ interface Functor<F> {
 首先，我们需要一个中间层：
 
 ```ts
-interface HKT<F, A> {}
+interface HKT<F, A> { }
 ```
 
 然后我们就可以用 `HKT<F, A>` 来表示 `F<A>` ，这样操作完 `HKT<F, A>` 后我们仍然有完整的类型信息来还原 `F<A>` 的类型。
@@ -55,10 +53,8 @@ interface HKT<F, A> {}
 这样，上面 `Functor` 就可以写成：
 
 ```ts
-interface Functor<F> {
-    <A, B> 
-    HKT<F, B> map(HKT<F, A> ma, 
-                  Function<A, B> f);
+interface Functor<F, A, B> {
+    map(ma: HKT<F, A>, f: (x: A) => B): HKT<F, B>;
 }
 ```
 

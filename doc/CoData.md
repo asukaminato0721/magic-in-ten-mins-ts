@@ -33,8 +33,9 @@ const list = new IntCons(1, list);
 
 <!-- #inf -->
 ```ts
+type Supplier<T> = () => T;
 class InfIntList {
-	constructor(public head: number, public next: () => InfIntList) {
+	constructor(public head: number, public next: Supplier<InfIntList>) {
 		this.head = head;
 		this.next = next;
 	}
@@ -69,7 +70,7 @@ console.log(infAlt().next().next().next().next().next().next().head);
 1
 ```
 
-运行会输出 `2` 。注意，这里的 `infAlt` 从某种角度来看实际上就是个长度为 2 的环形结构。
+注意，这里的 `infAlt` 从某种角度来看实际上就是个长度为 2 的环形结构。
 
 用这样的思路可以构造出无限大的树、带环的图等数据结构。
 

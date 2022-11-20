@@ -20,20 +20,21 @@ FunctionType = Type * Type
 用 TypeScript 代码可以表示为：
 
 ```ts
-// 构造函数， equals 已省去
-interface Type {}
+// 构造函数
+interface Type { }
 // BaseType
 class TVal implements Type {
-    String name;
-    public String toString() {
-        return name;
+    name: string;
+    public toString(): string {
+        return this.name;
     }
 }
 // FunctionType
 class TArr implements Type {
-    Type src, tar;
-    public String toString() {
-        return "(" + src + " → " + tar + ")";
+    src: Type;
+    tar: Type;
+    public toString() {
+        return "(" + this.src + " → " + this.tar + ")";
     }
 }
 ```
@@ -43,17 +44,19 @@ class TArr implements Type {
 然后需把类型嵌入到 λ 演算的语法树中：
 
 ```ts
+interface Expr { }
 // 构造函数， toString 已省去
 class Val implements Expr {
-    String x;
-    Type type;
+    x: string;
+    type: Type;
 }
 class Fun implements Expr {
-    Val x;
-    Expr e;
+    x: Val;
+    e: Expr;
 }
 class App implements Expr {
-    Expr f, x;
+    f: Expr;
+    x: Expr;
 }
 ```
 
@@ -61,20 +64,17 @@ class App implements Expr {
 
 ```ts
 interface Env {
-    Type lookup(String s) throws BadTypeException;
+    lookup(s: string): Type;
 }
 class NilEnv implements Env {
-    public Type lookup(String s) throws BadTypeException {
-        throw new BadTypeException();
+    public lookup(s: string): Type {
+        throw new TypeError();
     }
 }
 class ConsEnv implements Env {
-    Val v;
-    Env next;
-    public Type lookup(String s) throws BadTypeException {
-        if (s.equals(v.x)) return v.type;
-        return next.lookup(s);
-    }
+    v: Val;
+    next: Env;
+    public lookup = (s: string) => (s === (this.v.x)) ? this.v.type : this.next.lookup(s);
 }
 ```
 

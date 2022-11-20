@@ -9,12 +9,10 @@
 单子 (Monad) 是指一种有一个类型参数的数据结构，拥有 `pure` （也叫 `unit` 或者 `return` ）和 `flatMap` （也叫 `bind` 或者 `>>=` ）两种操作：
 
 ```ts
+interface HKT<F, A> { }
 interface Monad<M> {
-    <A> HKT<M, A> pure(A v);
-    
-    <A, B> HKT<M, B>
-    flatMap(HKT<M, A> ma, 
-            Function<A, HKT<M, B>> f);
+    pure<A>(v: A): HKT<M, A>;
+    flatMap<A, B>(ma: HKT<M, A>, f: (x: A) => HKT<M, B>): HKT<M, B>;
 }
 ```
 

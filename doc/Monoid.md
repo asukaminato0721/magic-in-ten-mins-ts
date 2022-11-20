@@ -28,7 +28,7 @@ interface Semigroup<T> {
 <!-- #MonoidAcc -->
 ```ts
 interface MonoidAcc<T> {
-    Identity: T;
+    value: T;
     concat: (v: T) => MonoidAcc<T>
 }
 ```
@@ -41,16 +41,10 @@ interface MonoidAcc<T> {
 <!-- verifier:prepend-id-to-following:MonoidAcc -->
 ```ts
 class SumAcc implements MonoidAcc<number> {
-    Identity: number = 0;
-    constructor(value: number) {
-        this.Identity = value;
+    constructor(public value: number) {
+        this.value = value;
     }
-    concat = (v: number): MonoidAcc<number> => {
-        if (this.Identity !== 0) { return new SumAcc(this.Identity); }
-        else {
-            return new SumAcc(v);
-        }
-    }
+    concat = (v: number) => this.value !== 0 ? this : new SumAcc(v);
 }
 ```
 
@@ -64,7 +58,7 @@ const sum: MonoidAcc<number> = new SumAcc(0)
     .concat(1)
     .concat(0)
     .concat(3);
-console.log(sum.Identity);
+console.log(sum.value);
 ```
 
 <!-- #sumaccTest-output -->
@@ -86,13 +80,10 @@ enum Ordering {
 }
 
 class OrderingAcc implements MonoidAcc<Ordering> {
-    Identity: Ordering = Ordering.EQ;
-    constructor(value: Ordering) {
-        this.Identity = value;
+    constructor(public value: Ordering) {
+        this.value = value;
     }
-    concat = (v: Ordering): MonoidAcc<Ordering> => {
-        return this.Identity === Ordering.EQ ? new OrderingAcc(v) : this;
-    }
+    concat = (v: Ordering) => this.value === Ordering.EQ ? new OrderingAcc(v) : this;
 }
 
 const compare = (a: any, b: any): Ordering => {
@@ -119,13 +110,11 @@ class Student {
         this.gender = gender;
         this.from = from;
     }
-    compare = (other: Student): Ordering => {
-        return new OrderingAcc(Ordering.EQ)
+    compare = (other: Student): Ordering => new OrderingAcc(Ordering.EQ)
             .concat(compare(this.name, other.name))
             .concat(compare(this.gender, other.gender))
             .concat(compare(this.from, other.from))
-            .Identity;
-    }
+            .value;
 }
 ```
 
@@ -133,9 +122,9 @@ class Student {
 <!-- #testStudent -->
 ```ts
 (() => {
-    let student_1 = new Student("Alice", "Female", "Utopia");
-    let student_2 = new Student("Dorothy", "Female", "Utopia");
-    let student_3 = new Student("Alice", "Female", "Vulcan");
+    const student_1 = new Student("Alice", "Female", "Utopia");
+    const student_2 = new Student("Dorothy", "Female", "Utopia");
+    const student_3 = new Student("Alice", "Female", "Vulcan");
     console.log(student_1.compare(student_2));
     console.log(student_1.compare(student_3));
     console.log(student_2.compare(student_3));
@@ -158,12 +147,8 @@ class Student {
 
 <!-- #extend -->
 ```ts
-const when = (c: boolean, then: Function): Function => {
-    return c ? then : () => { };
-}
-const cond = (c: boolean, then: Function, els: Function): Function => {
-    return c ? then : els;
-}
+const when = (c: boolean, then: Function) => c ? then : () => { };
+const cond = (c: boolean, then: Function, els: Function) => c ? then : els;
 class Todo {
     appends = (v: Function[]) => () => v.forEach(x => x());
 }

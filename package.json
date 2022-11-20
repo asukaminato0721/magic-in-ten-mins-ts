@@ -7,7 +7,9 @@
   "scripts": {
     "test": "literate-ts ./doc/{ADT,Algeff,CHIso,ChurchE,TableDriven,Monoid,CoData,Continuation,GADT,PiSigma}.md",
     "Continuation": "literate-ts ./doc/Continuation.md",
-    "GADT": "literate-ts ./doc/GADT.md"
+    "CoData": "literate-ts ./doc/CoData.md",
+    "GADT": "literate-ts ./doc/GADT.md",
+    "Monoid": "literate-ts ./doc/Monoid.md"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",
