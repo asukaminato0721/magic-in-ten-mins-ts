@@ -8,11 +8,15 @@
 
 在 TypeScript 里面实现递归非常简单，只需要在函数内调用函数本身就好了，比如下面的求和程序：
 
+<!-- #sum -->
 ```ts
-const sum = (n: number) => {
-    if (n === 0) return 0;
-    else return n + sum(n - 1);
-}
+const sum = (n: number) => n === 0 ? 0 : n + sum(n - 1);
+console.log(sum(100));
+```
+
+<!-- #sum-output -->
+```ts
+5050
 ```
 
 这时候就会注意到看起来递归必须要函数有名字，不然怎么调用时表示自己呢？实际上有个很显然的例子：
@@ -52,18 +56,18 @@ sum = Y sum'
 很显然如果直接使用严格求值会无限展开 Y 算子而得不到结果，如果使用惰性求值会得不到易于阅读的结果。这时候就要用一种介于两者之间的求值策略：
 
 ```ts
-// class Fun
-public Expr fullReduce() {
-    return new Fun(x, e.fullReduce());
+class Fun {
+    public fullReduce = () => new Fun(x, e.fullReduce())
 }
-// class App
-public Expr fullReduce() {
-    Expr fr = f.reduce();
-    if (fr instanceof Fun) {
-        Fun fun = (Fun) fr;
-        return fun.e.apply(fun.x, x).fullReduce();
+class App {
+    public fullReduce = () => {
+        const fr = f.reduce();
+        if (fr instanceof Fun) {
+            const fun = fr;
+            return fun.e.apply(fun.x, x).fullReduce();
+        }
+        return new App(fr.fullReduce(), x.fullReduce());
     }
-    return new App(fr.fullReduce(), x.fullReduce());
 }
 ```
 
@@ -74,7 +78,7 @@ public Expr fullReduce() {
 在编码那期中介绍了如何在 λ 演算中构造分支结构，而循环循环可以用递归来表示，每个循环都可以写成循环变量作为参数的尾递归函数，实际上如下的循环：
 
 ```ts
-State state;
+let state = new State();
 while (needLoop(state)) {
     doSomething();
     state = update(state);
@@ -84,7 +88,7 @@ while (needLoop(state)) {
 都可以写成如下的递归函数：
 
 ```ts
-State While(State state) {
+const While = (state: State) => {
     if (needLoop(state)) 
         return While(update(state));
     else return state;

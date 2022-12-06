@@ -120,7 +120,7 @@ class App implements Expr {
 进行了类型检查，会打印输出 `(int → ((int → bool) → bool))` ：
 
 ```ts
-public interface STLambda {
+interface STLambda {
     static void main(String[] args) throws BadTypeException {
         console.log(
             new Fun(new Val("x", new TVal("int")),

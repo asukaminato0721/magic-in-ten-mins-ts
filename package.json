@@ -5,11 +5,12 @@
   "author": "Asuka Minato",
   "license": "MIT",
   "scripts": {
-    "test": "literate-ts ./doc/{ADT,Algeff,CHIso,ChurchE,TableDriven,Monoid,CoData,Continuation,GADT,PiSigma}.md",
+    "test": "literate-ts ./doc/{ADT,Algeff,CHIso,ChurchE,TableDriven,Monoid,CoData,Continuation,GADT,PiSigma,Monad}.md",
     "Continuation": "literate-ts ./doc/Continuation.md",
     "CoData": "literate-ts ./doc/CoData.md",
     "GADT": "literate-ts ./doc/GADT.md",
-    "Monoid": "literate-ts ./doc/Monoid.md"
+    "Monoid": "literate-ts ./doc/Monoid.md",
+    "Monad": "literate-ts ./doc/Monad.md"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",

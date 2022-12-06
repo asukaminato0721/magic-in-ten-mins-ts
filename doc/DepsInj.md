@@ -120,7 +120,7 @@ class Human {
         ReaderM<Hand> m = new ReaderM<>();
         return Reader.narrow(
             m.flatMap(m.ask,
-            hand -> {
+            hand => {
                 hand.rush();
                 return m.pure(hand);
             }));
@@ -129,7 +129,7 @@ class Human {
         ReaderM<Hand> m = new ReaderM<>();
         return Reader.narrow(
             m.flatMap(m.ask,
-            hand -> {
+            hand => {
                 hand.hold(thing);
                 return m.pure(hand);
             }));
@@ -150,13 +150,13 @@ class Human {
 ```ts
 class Human {
     please(Runnable cont) {
-        Eff.Perform("Hand", hand -> {
+        Eff.Perform("Hand", hand => {
             ((Hand) hand).rush();
             cont();
         });
     }
     pick<T>(thing: T, cont: Function) {
-        Eff.Perform("Hand", hand -> {
+        Eff.Perform("Hand", hand => {
             ((Hand) hand).hold(thing);
             cont();
         })

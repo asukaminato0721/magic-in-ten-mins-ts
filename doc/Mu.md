@@ -30,36 +30,36 @@ Y f = f (Y f)
 
 ```ts
 class Mu implements Expr {
-    Val x;
-    Expr e;
+    x: Val;
+    e: Expr;
     
-    Expr open() { // unfold
+    open(): Expr { // unfold
         return e.apply(x, this);
     }
 
-    public Expr reduce() {
+    public  reduce(): Expr  {
         return this;
     }
 
-    public Expr fullReduce() {
+    public  fullReduce(): Expr  {
         return this;
     }
 
-    public Expr checkType(Env env) throws BadTypeException {
-        Pi pi = new Pi(x, e.checkType(new ConsEnv(x, env)));
+    public checkType(Env env) : Expr  {
+        const pi = new Pi(x, e.checkType(new ConsEnv(x, env)));
         if (pi.checkType(env) instanceof Sort &&
-                pi.e.fullReduce().equals(pi.x.t.fullReduce()))
+                pi.e.fullReduce()===(pi.x.t.fullReduce()))
             return pi.e;
         throw new BadTypeException();
     }
     
-    public boolean equals(Object o) {
+    public  equals( o:Object):boolean {
         if (this === o) return true;
         if (o === null) return false;
         if (getClass() != e.getClass()) 
             return Objects.equals(open(), e);
         //         ^^^^^^^^^^^^^^^^^^^^^^^^^
-        Mu mu = (Mu) o;
+        const mu = o;
         return Objects.equals(e.apply(x, mu.x), mu.e);
         //                    ^^^^^^^^^^^^^^^^
     }

@@ -31,7 +31,7 @@
 
 fmap is a lifting surly. 因为它符合 lifting 的函数签名，但是 lifting 并不一定是 fmap 。只要符合这样的函数签名就可以说是一个 lifting 。
 
-比如对于 list 来说 `f -> x -> x.tail().map(f)` 也符合 lifting 的函数签名但很显然它不是一个 `fmap` 函数。或者说很多改变结构的函数和 `fmap` 组合还是一个 lifting 函数。
+比如对于 list 来说 `f => x => x.tail().map(f)` 也符合 lifting 的函数签名但很显然它不是一个 `fmap` 函数。或者说很多改变结构的函数和 `fmap` 组合还是一个 lifting 函数。
 
 ## 除此之外呢
 
@@ -47,7 +47,7 @@ fmap is a lifting surly. 因为它符合 lifting 的函数签名，但是 liftin
 <A, B, C>
 BiFunction<List<A>, List<B>, List<C>>
 liftM2List(BiFunction<A, B, C> f) {
-    HKTListM m = new HKTListM();
+    const m = new HKTListM();
     return (ma, mb) => HKTList.narrow(
              m.flatMap(new HKTList<>(ma),
         a => m.flatMap(new HKTList<>(mb),

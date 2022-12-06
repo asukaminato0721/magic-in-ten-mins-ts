@@ -22,8 +22,6 @@ QQ 群：1070975853 |
 
 ## Usage
 
-改写完了 `Algeff,CHIso,ChurchE,Continuation`
-
 ### yarn
 
 ```
@@ -56,7 +54,7 @@ npm run Continuation
 
 较难 |[Markdown](doc/HKT.md) |高阶类型 (Higher Kinded Type)[TypeScript 基础]
 
-中等 |[Markdown](doc/Monad.md) |单子 (Monad)[TypeScript 基础， HKT]
+- [x] 中等 |[Markdown](doc/Monad.md) |单子 (Monad)[TypeScript 基础， HKT]
 
 较难 |[Markdown](doc/StateMonad.md) |状态单子 (State Monad)[TypeScript 基础， HKT ， Monad]
 
@@ -98,22 +96,16 @@ npm run Continuation
 
 - [x] 简单 |[Markdown](doc/TableDriven.md) |表驱动编程 (Table-Driven Programming)[简单 TypeScript 基础]
 
-- [x] 简单 |[Markdown](doc/Continuation.md) |续延 (Continuation)
-[简单 TypeScript 基础]
+- [x] 简单 |[Markdown](doc/Continuation.md) |续延 (Continuation)[简单 TypeScript 基础]
 
-- [x] 中等 |[Markdown](doc/Algeff.md) |代数作用 (Algebraic Effect)
-[简单 TypeScript 基础，续延]
+- [x] 中等 |[Markdown](doc/Algeff.md) |代数作用 (Algebraic Effect)[简单 TypeScript 基础，续延]
 
-中等 |[Markdown](doc/DepsInj.md) |依赖注入 (Dependency Injection)
-[TypeScript 基础， Monad ，代数作用]
+中等 |[Markdown](doc/DepsInj.md) |依赖注入 (Dependency Injection)[TypeScript 基础， Monad ，代数作用]
 
-中等 |[Markdown](doc/Lifting.md) |提升 (Lifting)
-[TypeScript 基础， HKT ， Monad]
+中等 |[Markdown](doc/Lifting.md) |提升 (Lifting)[TypeScript 基础， HKT ， Monad]
 
 ## 编译原理
 
-较难 |[Markdown](doc/ParserM.md) |解析器单子 (Parser Monad)
-[TypeScript 基础， HKT ， Monad]
+较难 |[Markdown](doc/ParserM.md) |解析器单子 (Parser Monad)[TypeScript 基础， HKT ， Monad]
 
-中等 |[Markdown](doc/Parsec.md) |解析器组合子 (Parser Combinator)
-[TypeScript 基础， HKT ， Monad]
+中等 |[Markdown](doc/Parsec.md) |解析器组合子 (Parser Combinator)[TypeScript 基础， HKT ， Monad]

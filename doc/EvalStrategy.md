@@ -34,7 +34,7 @@ public reduce(): Expr {
 
 ```ts
 // class App
-public strictReduce(): Expr {
+public strictReduce = () => {
     const fr = f.strictReduce();
     const xr = x.strictReduce();
     if (fr instanceof Fun) {
@@ -53,9 +53,7 @@ public strictReduce(): Expr {
 
 ```ts
 // class Fun
-public fullBetaReduce(): Expr {
-    return new Fun(x, e.fullBetaReduce());
-}
+public fullBetaReduce = () => new Fun(x, e.fullBetaReduce())
 ```
 
 这就是完全 β 归约。它会将任何能归约的地方归约，即使这个函数并没有被应用函数内部也会被归约。

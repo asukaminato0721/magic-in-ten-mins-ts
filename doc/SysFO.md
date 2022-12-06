@@ -18,10 +18,10 @@ class Just<T> {
 
 ```ts
 interface Type {
-    Type reduce();
-    Type fullReduce();
-    Type apply(TVal v, Type t);
-    Type genUUID();
+    reduce: () => Type;
+    fullReduce: () => Type;
+    apply: (v: TVal, t: Type) => Type;
+    genUUID: () => Type;
 }
 class TVal implements Type {
     String x;

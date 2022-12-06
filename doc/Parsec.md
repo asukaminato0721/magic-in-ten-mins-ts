@@ -14,12 +14,12 @@
 // 忽略参数解析器的解析结果
 <B> Parser<A>
 skip(Parser<B> p) {
-    return combine(p, (a, b) -> a);
+    return combine(p, (a, b) => a);
 }
 // 使用参数解析器的解析结果
 <B> Parser<B>
 use(Parser<B> p) {
-    return combine(p, (a, b) -> b);
+    return combine(p, (a, b) => b);
 }
 ```
 
@@ -29,7 +29,7 @@ use(Parser<B> p) {
 // class Parser<A>
 Parser<A>
 or(Parser<A> p) {
-    return new Parser<>(s -> {
+    return new Parser<>(s => {
         Maybe<Pair<A, ParseState>>
             r = runParser(s);
         if (r.value === null)
@@ -45,7 +45,7 @@ or(Parser<A> p) {
 // class Parser<A>
 Parser<List<A>>
 many() {
-    return new Parser<>(s -> {
+    return new Parser<>(s => {
         Maybe<Pair<A, ParseState>>
             r = runParser(s);
         if (r.value === null)
@@ -68,7 +68,7 @@ many() {
 // class Parser<A>
 Parser<List<A>>
 some() {
-    return combine(many(), (x, xs) -> {
+    return combine(many(), (x, xs) => {
         xs.add(0, x);
         return xs;
     });
@@ -81,7 +81,7 @@ some() {
 
 ```ts
 static Parser<Character> id =
-        new Parser<>(s -> {
+        new Parser<>(s => {
             
     if (s.p === s.s.length())
         return new Maybe<>();
@@ -103,7 +103,7 @@ pred(Predicate<Character> f) {
     ParserM m = new ParserM();
     return narrow(
               m.flatMap(id,
-         c -> f.test(c) ?
+         c => f.test(c) ?
                   m.pure(c) :
                   m.fail()));
 }
@@ -114,7 +114,7 @@ pred(Predicate<Character> f) {
 ```ts
 static Parser<Character>
 character(char x) {
-    return pred(c -> c === x);
+    return pred(c => c === x);
 }
 ```
 
@@ -125,23 +125,23 @@ character(char x) {
 ```ts
 // 解析一个数字字符
 static Parser<Integer> digit =
-    pred(c -> '0' <= c && c <= '9')
-        .map(c -> c - '0');
+    pred(c => '0' <= c && c <= '9')
+        .map(c => c - '0');
 // 解析一个自然数
 static Parser<Integer> nat =
-        digit.some().map(xs -> {
+        digit.some().map(xs => {
     int x = 0;
     for (int i : xs) x = x * 10 + i;
     return x;
 });
 // 解析一个整数
 static Parser<Integer> integer =
-    (character('-').use(nat).map(x -> -x))
+    (character('-').use(nat).map(x => -x))
                    .or(nat);
 // 解析一个浮点数
 static Parser<Double> real =
     (integer.combine(character('.')
-        .use(digit.some()).map(xs -> {
+        .use(digit.some()).map(xs => {
             double ans = 0, base = 0.1;
                 for (int i : xs) {
                     ans += base * i;

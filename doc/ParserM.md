@@ -2,7 +2,7 @@
 
 ### By 「玩火」 改写 「Asuka Minato」
 
-> 前置技能：TypeScript基础，HKT，Monad
+> 前置技能：TypeScript 基础，HKT，Monad
 
 解析器（Parser）是编译器的一部分，它读取源代码（Source Code），输出一个抽象语法树（Abstract Syntax Tree, AST）。某种程度上来说，解析器是一种可组合的东西，字符解析器组成了整数解析器，整数解析器组成了浮点数解析器。
 
@@ -41,11 +41,11 @@ class Parser<A>
     }
 
     Maybe<A> parse(String s) {
-        MaybeM m = new MaybeM();
+        const m = new MaybeM();
         return Maybe.narrow(
                  m.flatMap(runParser(
                      new ParseState(s)),
-            r -> m.pure(r.first)));
+            r => m.pure(r.first)));
     }
 }
 ```
@@ -57,15 +57,15 @@ class ParserM
     implements Monad<Parser<?>> {
     
     public <A> HKT<Parser<?>, A> 
-    pure(A v) {
-        return new Parser<>(s ->
+    pure(v: A) {
+        return new Parser<>(s =>
                new Maybe<>(
                new Pair<>(v, s)));
     }
 
     public <A> HKT<Parser<?>, A> 
     fail() {
-        return new Parser<>(s -> 
+        return new Parser<>(s => 
                new Maybe<>());
     }
 
@@ -74,9 +74,9 @@ class ParserM
         Function<A, 
             HKT<Parser<?>, B>> f) {
 
-        return new Parser<>(s -> {
+        return new Parser<>(s => {
             MaybeM m = new MaybeM();
-            // 一点伪代码(not Haskell)
+            // 一点伪代码 (not Haskell)
             // do
             //   r <- ma.runParser(s)
             //   f(r.first).runParser(
@@ -85,7 +85,7 @@ class ParserM
                      m.flatMap(Parser
                          .narrow(ma)
                          .runParser(s),
-                r -> Parser
+                r => Parser
                      .narrow(f.apply(
                          r.first))
                      .runParser(
@@ -111,7 +111,7 @@ map(Function<A, B> f) {
     //   pure (f(x))
     return narrow(
              m.flatMap(this,
-        x -> m.pure(f.apply(x))));
+        x => m.pure(f.apply(x))));
 }
 
 <B, C> Parser<C>
@@ -124,10 +124,7 @@ combine(Parser<B> p,
     //   pure (f(a, b))
     return narrow(
              m.flatMap(this,
-        a -> m.flatMap(p,
-        b -> m.pure(f.apply(a, b)))));
+        a => m.flatMap(p,
+        b => m.pure(f.apply(a, b)))));
 }
 ```
-
-
-

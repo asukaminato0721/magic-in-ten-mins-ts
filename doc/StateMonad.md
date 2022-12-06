@@ -24,7 +24,7 @@ console.log(i);
 可以用状态单子的思路改写成：
 
 ```ts
-(v -> console.log(v)).apply(i + 1);
+(v => console.log(v)).apply(i + 1);
 ```
 
 最简单的理解就是这样的一个包含函数的对象：
@@ -69,7 +69,7 @@ class StateM<S>
     
     public <A> HKT<State<S, ?>, A> 
     pure(A v) {
-        return new State<>(s -> 
+        return new State<>(s => 
             new State.StateData<>(v, s));
     }
     
@@ -81,7 +81,7 @@ class StateM<S>
         Function<A,
             HKT<State<S, ?>, B>> f) {
         
-        return new State<>(s -> {
+        return new State<>(s => {
             
             // r = ma.runState(s)
             State.StateData<A, S> r = 
@@ -110,17 +110,17 @@ class StateM<S>
 // class StateM<S>
 // 读取
 HKT<State<S, ?>, S> get = 
-    new State<>(s -> 
+    new State<>(s => 
         new State.StateData<>(s, s));
 // 写入
 HKT<State<S, ?>, S> put(S s) {
-    return new State<>(any -> 
+    return new State<>(any => 
         new State.StateData<>(any, s));
 }
 // 修改
 HKT<State<S, ?>, S> 
 modify(Function<S, S> f) {
-    return new State<>(s -> 
+    return new State<>(s => 
         new State.StateData<>(
             s, 
             f.apply(s)));
@@ -137,16 +137,16 @@ fib(Integer n) {
         new StateM<>();
     if (n === 0) return State.narrow(
              m.flatMap(m.get,
-        x -> m.pure(x.first)));
+        x => m.pure(x.first)));
     if (n === 1) return State.narrow(
              m.flatMap(m.get,
-        x -> m.pure(x.second)));
+        x => m.pure(x.second)));
     
     return State.narrow(
-             m.flatMap(m.modify(x -> 
+             m.flatMap(m.modify(x => 
                  new Pair<>(x.second, 
                      x.first + x.second)),
-        v -> fib(n - 1)));
+        v => fib(n - 1)));
 }
 public static void main(String[] args) {
     console.log(
@@ -176,9 +176,9 @@ fib n = do
 看到这里肯定有人会拍桌而起：求斐波那契数列我有更简单的写法！
 
 ```ts
-static int fib(int n) {
-    int[] a = {0, 1, 1};
-    for (int i = 0; i < n - 2; i++)
+const fib = (n: number) => {
+    const a = [0, 1, 1];
+    for (let i = 0; i < n - 2; i++)
         a[(i + 3) % 3] = a[(i + 2) % 3] + 
                          a[(i + 1) % 3];
     return a[n % 3];
